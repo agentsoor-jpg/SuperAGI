@@ -1,24 +1,51 @@
-OPENAI_API_KEY: ""
+#####################------------------SYSTEM KEYS-------------------------########################
 
-OPENAI_API_BASE: https://api.openai.com/v1
+OPENAI_API_KEY: ""
+OPENAI_API_BASE: "https://api.openai.com/v1"
+
 MODEL_NAME: "gpt-3.5-turbo"
 RESOURCES_SUMMARY_MODEL_NAME: "gpt-3.5-turbo"
 
 MAX_TOOL_TOKEN_LIMIT: 800
 MAX_MODEL_TOKEN_LIMIT: 4032
 
+# DATABASE & REDIS (يتم أخذ القيم من Railway)
 DB_URL: ""
 REDIS_URL: ""
 
+# STORAGE
 STORAGE_TYPE: "FILE"
 TOOLS_DIR: "superagi/tools"
 
+# AUTH
 ENV: "PROD"
 JWT_SECRET_KEY: ""
 expiry_time_hours: 1
 
+# FRONTEND
 FRONTEND_URL: ""
 
+# ENCRYPTION
 ENCRYPTION_KEY: ""
 
+# VECTOR / WEAVIATE
 WEAVIATE_USE_EMBEDDED: true
+
+
+#####################------------------OPTIONAL KEYS-------------------------########################
+
+# يمكنك ترك هذه فارغة إذا لا تستخدمها
+PINECONE_API_KEY:
+PINECONE_ENVIRONMENT:
+
+PALM_API_KEY:
+REPLICATE_API_TOKEN:
+HUGGING_API_TOKEN:
+
+GOOGLE_API_KEY:
+SEARCH_ENGINE_ID:
+SERP_API_KEY:
+
+SLACK_BOT_TOKEN:
+STABILITY_API_KEY:
+ENGINE_ID: "stable-diffusion-xl-beta-v2-2-2"
