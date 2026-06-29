@@ -1,0 +1,24 @@
+OPENAI_API_KEY: ""
+
+OPENAI_API_BASE: https://api.openai.com/v1
+MODEL_NAME: "gpt-3.5-turbo"
+RESOURCES_SUMMARY_MODEL_NAME: "gpt-3.5-turbo"
+
+MAX_TOOL_TOKEN_LIMIT: 800
+MAX_MODEL_TOKEN_LIMIT: 4032
+
+DB_URL: ""
+REDIS_URL: ""
+
+STORAGE_TYPE: "FILE"
+TOOLS_DIR: "superagi/tools"
+
+ENV: "PROD"
+JWT_SECRET_KEY: ""
+expiry_time_hours: 1
+
+FRONTEND_URL: ""
+
+ENCRYPTION_KEY: ""
+
+WEAVIATE_USE_EMBEDDED: true
