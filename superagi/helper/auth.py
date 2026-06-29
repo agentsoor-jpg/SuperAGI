@@ -1,8 +1,7 @@
-from fastapi import Depends, HTTPException, Header, Security, status
+from fastapi import Depends, HTTPException, Header, Security, status, Request
 from fastapi.security import APIKeyHeader
 from fastapi_jwt_auth import AuthJWT
 from fastapi_sqlalchemy import db
-from fastapi.security.api_key import APIKeyHeader
 from superagi.config.config import get_config
 from superagi.models.organisation import Organisation
 from superagi.models.user import User
@@ -44,22 +43,25 @@ def get_user_organisation(Authorize: AuthJWT = Depends(check_auth)):
     return organisation
 
 
-def get_current_user(Authorize: AuthJWT = Depends(check_auth), request: Request = Depends()):
+def get_current_user(Authorize: AuthJWT = Depends(check_auth), request: Request = None):
     env = get_config("ENV", "DEV")
 
     if env == "DEV":
         email = "super6@agi.com"
     else:
         # Check for HTTP basic auth headers
-        auth_header = request.headers.get('Authorization')
-        if auth_header and auth_header.startswith('Basic '):
-            import base64
-            auth_decoded = base64.b64decode(auth_header.split(' ')[1]).decode('utf-8')
-            username, password = auth_decoded.split(':')
-            # Assuming username is the email
-            email = username
+        if request and request.headers:
+            auth_header = request.headers.get('Authorization')
+            if auth_header and auth_header.startswith('Basic '):
+                import base64
+                auth_decoded = base64.b64decode(auth_header.split(' ')[1]).decode('utf-8')
+                username, password = auth_decoded.split(':')
+                # Assuming username is the email
+                email = username
+            else:
+                # Retrieve the email of the logged-in user from the JWT token payload
+                email = Authorize.get_jwt_subject()
         else:
-            # Retrieve the email of the logged-in user from the JWT token payload
             email = Authorize.get_jwt_subject()
 
     # Query the User table to find the user by their email
@@ -91,4 +93,4 @@ def get_organisation_from_api_key(api_key: str = Security(api_key_header)) -> Or
         )
 
     organisation = db.session.query(Organisation).filter(Organisation.id == query_result.org_id).first()
-    return  organisation
+    return organisation
