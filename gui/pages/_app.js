@@ -1,3 +1,4 @@
+```jsx
 import React, {useState, useEffect} from 'react';
 import dynamic from 'next/dynamic';
 import SideBar from './Dashboard/SideBar';
@@ -308,7 +309,7 @@ export default function App() {
               <Image width={20} height={20} src="/images/github.svg" alt="github"/>&nbsp;Continue with Github
             </button>
             <div className="signInInfo">
-              By continuing, you agree to Super AGI's Terms of Service and Privacy Policy, and to receive important
+              By continuing, you agree to Super AGI&rsquo;s Terms of Service and Privacy Policy, and to receive important
               updates.
             </div>
           </div> : <div className="signInWrapper" style={{background: 'transparent'}}>
@@ -319,3 +320,4 @@ export default function App() {
     </div>
   );
 }
+```
