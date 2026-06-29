@@ -1,8 +1,6 @@
-```jsx
 import React, {useState, useEffect} from 'react';
 import dynamic from 'next/dynamic';
 import SideBar from './Dashboard/SideBar';
-// import Content from './Dashboard/Content'; // ❌ ممنوع استخدام import مباشر
 import TopBar from './Dashboard/TopBar';
 import 'bootstrap/dist/css/bootstrap.css';
 import "react-grid-layout/css/styles.css";
@@ -67,7 +65,6 @@ export default function App() {
         console.error('Error fetching project:', error);
       });
   }
-
 
   const installFromMarketplace = () => {
     const toolkitName = localStorage.getItem('toolkit_to_install') || null;
@@ -144,7 +141,6 @@ export default function App() {
           const singupCampaign = sessionStorage.getItem('campaign');
 
           if (typeof window !== 'undefined' && access_token) {
-            // localStorage.setItem('accessToken', access_token);
             Cookies.set('accessToken', access_token, {domain: '.superagi.com', path: '/'});
             refreshUrl();
           }
@@ -210,7 +206,6 @@ export default function App() {
   async function signInUser() {
     let github_client_id = githubClientId();
 
-      // If `github_client_id` does not exist, make the API call
       if (!github_client_id) {
         const response = await getGithubClientId();
         github_client_id = response.data.github_client_id;
@@ -239,6 +234,7 @@ export default function App() {
           console.error('Error adding user:', error);
         });
   };
+
   const handleSignUpSource = (signup) => {
     getFirstSignup(signup)
         .then((response) => {
@@ -278,9 +274,7 @@ export default function App() {
     <div className="app">
       <Head>
         <title>SuperAGI</title>
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet"/>
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
               rel="stylesheet"/>
       </Head>
@@ -320,4 +314,3 @@ export default function App() {
     </div>
   );
 }
-```
