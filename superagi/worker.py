@@ -20,11 +20,13 @@ from sqlalchemy import event
 from superagi.models.agent_execution import AgentExecution
 from superagi.helper.webhook_manager import WebHookManager
 
-redis_url = get_config('REDIS_URL', 'super__redis:6379')
+redis_url = get_config('REDIS_URL', 'redis://super__redis:6379')
+if not redis_url.startswith('redis://'):
+    redis_url = 'redis://' + redis_url
+app.conf.broker_url = redis_url
+app.conf.result_backend = redis_url
 
 app = Celery("superagi", include=["superagi.worker"], imports=["superagi.worker"])
-app.conf.broker_url = "redis://" + redis_url + "/0"
-app.conf.result_backend = "redis://" + redis_url + "/0"
 app.conf.worker_concurrency = 10
 app.conf.accept_content = ['application/x-python-serialize', 'application/json']
 
@@ -109,4 +111,3 @@ def webhook_callback(agent_execution_id,val,old_val):
     Session = sessionmaker(bind=engine)
     with Session() as session:
         WebHookManager(session).agent_status_change_callback(agent_execution_id, val, old_val)
-    
