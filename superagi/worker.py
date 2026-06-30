@@ -23,10 +23,10 @@ from superagi.helper.webhook_manager import WebHookManager
 redis_url = get_config('REDIS_URL', 'redis://super__redis:6379')
 if not redis_url.startswith('redis://'):
     redis_url = 'redis://' + redis_url
-app.conf.broker_url = redis_url
-app.conf.result_backend = redis_url
 
 app = Celery("superagi", include=["superagi.worker"], imports=["superagi.worker"])
+app.conf.broker_url = redis_url
+app.conf.result_backend = redis_url
 app.conf.worker_concurrency = 10
 app.conf.accept_content = ['application/x-python-serialize', 'application/json']
 
